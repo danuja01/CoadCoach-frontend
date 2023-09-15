@@ -16,9 +16,7 @@ const App = () => {
         exit={{ opacity: 0, transition: { duration: 0.3 } }}
         transition={{ duration: 0.3 }}
       >
-        <Header />
         <AnimatedRoutes />
-        <Footer />
       </motion.main>
     </Provider>
   );

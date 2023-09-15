@@ -1,4 +1,1 @@
-export const githubOrgLink = "";
-export const repositoryLink = "";
-
-export let leaderboardURL = "";
+export const coadcoach = "www.coadcoach.com";
