@@ -1,0 +1,52 @@
+{
+  "name": "spm-frontend",
+  "version": "2.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "format": "prettier --write --cache \"**/*.{js,jsx,ts,tsx,md,mdx}\"",
+    "lint": "eslint . --ext js,jsx,mdx --ignore-path .gitignore --fix --cache --report-unused-disable-directives",
+    "preview": "vite preview",
+    "prepare": "lefthook install"
+  },
+  "dependencies": {
+    "@azure/storage-blob": "12.15.0",
+    "@reduxjs/toolkit": "1.9.5",
+    "async-mutex": "^0.4.0",
+    "firebase": "10.2.0",
+    "framer-motion": "10.14.0",
+    "jwt-decode": "^3.1.2",
+    "lodash": "4.17.21",
+    "lucide-react": "0.263.1",
+    "moment-timezone": "0.5.43",
+    "react": "18.0.0",
+    "react-countdown": "2.3.5",
+    "react-dom": "18.0.0",
+    "react-icons": "4.10.1",
+    "react-loader-spinner": "5.3.4",
+    "react-markdown": "8.0.3",
+    "react-redux": "8.1.2",
+    "react-router-dom": "6.14.0",
+    "tailwind-merge": "1.13.2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "17.4.2",
+    "@commitlint/config-conventional": "17.4.2",
+    "@trivago/prettier-plugin-sort-imports": "4.1.1",
+    "@types/node": "20.4.5",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "@vitejs/plugin-react": "4.0.0",
+    "autoprefixer": "10.4.14",
+    "eslint": "8.38.0",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-react-refresh": "0.4.1",
+    "lefthook": "1.4.3",
+    "postcss": "8.4.23",
+    "prettier": "2.8.8",
+    "tailwindcss": "3.3.2",
+    "tailwindcss-animate": "1.0.6",
+    "vite": "4.3.9"
+  }
+}

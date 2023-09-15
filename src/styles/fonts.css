@@ -1,0 +1,74 @@
+@layer base {
+  /* Inter font family */
+  @font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../../public/assets/fonts/Inter-Regular.ttf");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    src: url("../../public/assets/fonts/Inter-Medium.ttf");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    src: url("../../public/assets/fonts/Inter-SemiBold.ttf");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    src: url("../../public/assets/fonts/Inter-Bold.ttf");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 800;
+    src: url("../../public/assets/fonts/Inter-ExtraBold.ttf");
+    font-display: swap;
+  }
+  /* SourceCodePro */
+  @font-face {
+    font-family: "SourceCodePro";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../../public/assets/fonts/SourceCodePro-Regular.ttf");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "SourceCodePro";
+    font-style: normal;
+    font-weight: 500;
+    src: url("../../public/assets/fonts/SourceCodePro-Medium.ttf");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "SourceCodePro";
+    font-style: normal;
+    font-weight: 600;
+    src: url("../../public/assets/fonts/SourceCodePro-SemiBold.ttf");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "SourceCodePro";
+    font-style: normal;
+    font-weight: 700;
+    src: url("../../public/assets/fonts/SourceCodePro-Bold.ttf");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "SourceCodePro";
+    font-style: normal;
+    font-weight: 800;
+    src: url("../../public/assets/fonts/SourceCodePro-ExtraBold.ttf");
+    font-display: swap;
+  }
+}
