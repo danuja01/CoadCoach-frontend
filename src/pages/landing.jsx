@@ -1,7 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import { brand, coadcoach, copyright, role } from "@/constants";
 import Button from "@mui/material/Button";
 
 const Landing = () => {
+  const navigate = useNavigate();
+
+  const handleClick = (role) => {
+    navigate(`/login?role=${role}`);
+  };
+
   return (
     <section id="brand-hero" className="bg-gradient-to-r from-slate-500 to-slate-700 h-screen w-screen px-20 relative">
       <div className="flex flex-col items-center py-12">
@@ -15,11 +22,17 @@ const Landing = () => {
           <h2 className="font-codeSans font-medium text-[25px] text-white">
             <span className="text-blue-300">CONST</span> I AM =
           </h2>
-          <Button className="font-codeSans bg-[#E9ECF0] text-black text-[35px] py-4 w-[calc(100%-150px)] hover:opacity-75">
+          <Button
+            onClick={() => handleClick(role.programmer)}
+            className="font-codeSans bg-[#E9ECF0] text-black text-[35px] py-4 w-[calc(100%-150px)] hover:opacity-75"
+          >
             <img src="./assets/images/programmer.png" alt="Programmer" className="w-20 h-20 mr-8" />
             {role.programmer.toUpperCase()};
           </Button>
-          <Button className="font-codeSans bg-[#E9ECF0] text-black text-[35px] px-10 py-4 w-[calc(100%-150px)] hover:opacity-75">
+          <Button
+            onClick={() => handleClick(role.instructor)}
+            className="font-codeSans bg-[#E9ECF0] text-black text-[35px] px-10 py-4 w-[calc(100%-150px)] hover:opacity-75"
+          >
             <img src="./assets/images/tutor.png" alt="Instructor" className="w-20 h-20 mr-8" />
             {role.instructor.toUpperCase()};
           </Button>
