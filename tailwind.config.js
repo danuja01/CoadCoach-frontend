@@ -14,7 +14,9 @@ export default {
       }
     },
     extend: {
-      colors: {},
+      colors: {
+        primary: "#4C5871"
+      },
       borderRadius: {},
       keyframes: {},
       maxWidth: {},
