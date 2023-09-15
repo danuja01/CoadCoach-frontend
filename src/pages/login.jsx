@@ -57,7 +57,7 @@ const Login = () => {
       </div>
       <div className="login-footer">
         <img
-          src="./assets/images/programmer.png"
+          src={`./assets/images/${role}.png`}
           alt="Landing"
           className="w-[70px] absolute bottom-5 left-5 opacity-40"
         />
