@@ -1,14 +1,7 @@
-import { useLocation } from "react-router-dom";
-import { brand, coadcoach, copyright } from "@/constants";
+import { brand, coadcoach, copyright, role } from "@/constants";
 import { Button, Card, TextField } from "@mui/material";
 
-// Import useLocation from react-router-dom
-
-const Login = () => {
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const role = queryParams.get("role");
-
+const Register = () => {
   return (
     <>
       <div className="grid grid-cols-2 w-screen h-screen">
@@ -16,39 +9,40 @@ const Login = () => {
           <h1 className="font-codeSans text-[50px] text-white">{brand.name}</h1>
           <div className="flex flex-col h-[calc(100%-50px)] ml-20 gap-6 justify-center">
             <p className="text-white text-[32px] ">
-              <span className="text-blue-300">const</span> user = {role ? role.toUpperCase() : "programmer"};
+              <span className="text-blue-300">const</span> user = {role.programmer.toUpperCase()};
             </p>
             <p className="text-white  text-[32px]">
-              <span className="text-blue-300">function</span> signup(user){" { "} <br />
+              <span className="text-blue-300">function</span> register(user){" { "} <br />
               &nbsp;&nbsp;<span className="text-gray-400">return</span> user; <br />
               {"} "}
             </p>
-            <p className="text-white text-[32px] ">signup(user);</p>
+            <p className="text-white text-[32px] ">register(user);</p>
           </div>
         </div>
         <div className="bg-[#E9ECF0] flex justify-center items-center">
           <Card className="p-10 rounded-sm shadow-none">
             <div className="mb-8">
-              <h3 className="text-[25px] font-inter font-semibold">Welcome Back!</h3>
-              <p className="text-gray-400 text-sm">Please Sign in to continue Exploring CodeCoach_ </p>
+              <h3 className="text-[25px] font-inter font-semibold">Let's Get Started!!</h3>
+              <p className="text-gray-400 text-sm">Please Sign Up to Explore {brand.name} </p>
             </div>
-            <div className="flex flex-col gap-4">
-              <TextField id="outlined-basic" label="username / email" variant="outlined" />
-              <TextField id="outlined-basic" label="Password" variant="outlined" />
-              <div className="flex items-center">
-                <div className="flex-grow border-t border-gray-300 mr-4"></div> {/* Horizontal line */}
-                <a href="#" className="text-sm text-gray-400 hover:text-blue-600">
-                  Forget Password?
-                </a>
+            <div className="flex flex-col gap-3">
+              <div className="flex gap-2">
+                <TextField id="outlined-basic" label="First Name" variant="outlined" />
+                <TextField id="outlined-basic" label="Last Name" variant="outlined" />
               </div>
+              <TextField id="outlined-basic" label="Username" variant="outlined" />
+              <TextField id="outlined-basic" label="University" variant="outlined" />
+              <TextField id="outlined-basic" type="email" label="E-mail" variant="outlined" />
+              <TextField id="outlined-basic" type="password" label="Password" variant="outlined" />
+              <TextField id="outlined-basic" type="password" label="Re: Password" variant="outlined" />
             </div>
 
-            <div className="flex flex-col gap-4 mt-12">
+            <div className="flex flex-col gap-4 mt-5">
               <Button className="bg-primary text-white font-inter font-bold text-[18px]">Sign In</Button>
               <p className="text-sm text-gray-400">
-                Don’t have an account?{" "}
+                Already have an account?&nbsp;
                 <a href="#" className="text-blue-600">
-                  Sign up.
+                  Sign in.
                 </a>
               </p>
             </div>
@@ -57,7 +51,7 @@ const Login = () => {
       </div>
       <div className="login-footer">
         <img
-          src={`./assets/images/${role}.png`}
+          src={`./assets/images/programmer.png`}
           alt="Landing"
           className="w-[70px] absolute bottom-5 left-5 opacity-40"
         />
@@ -69,4 +63,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
