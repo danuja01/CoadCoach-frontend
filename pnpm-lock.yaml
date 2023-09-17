@@ -4,6 +4,7 @@ specifiers:
   '@azure/storage-blob': 12.15.0
   '@commitlint/cli': 17.4.2
   '@commitlint/config-conventional': 17.4.2
+  '@devbookhq/splitter': 1.4.2
   '@emotion/react': 11.11.1
   '@emotion/styled': 11.11.0
   '@mui/material': 5.14.9
@@ -43,6 +44,7 @@ specifiers:
 
 dependencies:
   '@azure/storage-blob': 12.15.0
+  '@devbookhq/splitter': 1.4.2
   '@emotion/react': 11.11.1_xq7qzkilcpemk4axufwmkfffpq
   '@emotion/styled': 11.11.0_aeeg2zwdqm7whvnwzgwh6ty6m4
   '@mui/material': 5.14.9_edu7byyvdq2oae3f7xcz3f4g3e
@@ -1819,6 +1821,12 @@ packages:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
+
+  /@devbookhq/splitter/1.4.2:
+    resolution: {integrity: sha512-DqJXsL7WNeDn/DyCeyoeeSpFHHoYBXscYlKNd3cJQ5d1xur73MPezHpyR2OID6Kh40TZ4KAb4hYjl5nL2+5M1g==}
+    dependencies:
+      react-is: 17.0.2
+    dev: false
 
   /@emotion/babel-plugin/11.11.0:
     resolution: {integrity: sha512-m4HEDZleaaCH+XgDDsPF15Ht6wTLsgDTeR3WYj9Q/k76JtWhrJjcP4+/XlG8LGT/Rol9qUfOIztXeA84ATpqPQ==}

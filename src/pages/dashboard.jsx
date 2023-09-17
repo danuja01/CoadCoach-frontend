@@ -5,7 +5,7 @@ const Dashboard = () => {
   return (
     <>
       <Header />
-      <div className="mx-5">
+      <div className="mx-5 mt-5">
         <h2 className="font-inter text-[28px] mb-5 font-bold">Your Labs</h2>
         <div className="grid grid-cols-3 gap-5">
           <Box
