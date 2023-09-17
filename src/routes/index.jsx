@@ -1,8 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import { Home } from "@/pages";
-import Landing from "@/pages/landing";
-import Login from "@/pages/login";
+import { Dashboard, Landing, Login, Register } from "@/pages";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -11,6 +9,8 @@ const AnimatedRoutes = () => {
       <Routes location={location}>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </AnimatePresence>
   );

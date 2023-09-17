@@ -33,7 +33,7 @@ const Landing = () => {
             onClick={() => handleClick(role.instructor)}
             className="font-codeSans bg-[#E9ECF0] text-black text-[35px] px-10 py-4 w-[calc(100%-150px)] hover:opacity-75"
           >
-            <img src="./assets/images/tutor.png" alt="Instructor" className="w-20 h-20 mr-8" />
+            <img src="./assets/images/instructor.png" alt="Instructor" className="w-20 h-20 mr-8" />
             {role.instructor.toUpperCase()};
           </Button>
         </div>
