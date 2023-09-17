@@ -9,20 +9,13 @@ const CodeEditorWindow = ({ onChange, language, code, theme }) => {
     onChange("code", value);
   };
 
-  const defaultValue = `/**
-   * CoadeCoach code editor
-   * Choose a language and start coding.
-   * Happy coding :)
-   */
-  `;
-
   return (
     <Editor
       width={`100%`}
       language={language || "javascript"}
       value={value}
       theme={theme}
-      defaultValue={defaultValue}
+      defaultValue={"// Start typing your code here..."}
       onChange={handleEditorChange}
       options={{
         fontSize: 14,
