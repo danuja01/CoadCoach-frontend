@@ -1,5 +1,3 @@
-import { Box } from "@mui/material";
-
 const question =
   "<p>Maria plays college basketball and wants to go pro. Each season she maintains a record of her play. She tabulates the number of times she breaks her season record for " +
   '    <span style="font-family: inherit;">most points</span> and ' +
@@ -144,7 +142,7 @@ const question =
 
 const QuestionPane = () => {
   return (
-    <div className="px-6 py-5 w-full">
+    <div id="question-pane" className="px-6 py-5 w-full">
       <div dangerouslySetInnerHTML={{ __html: question }} />
     </div>
   );

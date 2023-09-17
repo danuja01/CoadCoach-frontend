@@ -16,7 +16,7 @@ h1 {
   color: #333;
 }
 
-pre {
+#question-pane pre {
   background-color: #f4f4f4;
   padding: 16px;
   border: 1px solid #ccc;
