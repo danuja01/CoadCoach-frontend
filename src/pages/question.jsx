@@ -2,8 +2,15 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Split } from "@geoffcox/react-splitter";
 import axios from "axios";
-import { CodeEditorWindow, Header, QuestionPane, SidePanel, ThemeDropdown } from "@/components";
-import LanguageDropdown from "@/components/languageDropdown";
+import {
+  CodeEditorWindow,
+  Header,
+  LanguageDropdown,
+  OutputPane,
+  QuestionPane,
+  SidePanel,
+  ThemeDropdown
+} from "@/components";
 import { languageOptions } from "@/constants/languageOptions";
 import { defineTheme } from "@/lib/defineTheme";
 import { Button } from "@mui/material";
@@ -125,7 +132,7 @@ const Question = () => {
       <div className="flex  h-[calc(100vh-117px)]">
         <SidePanel />
 
-        <Split resetOnDoubleClick>
+        <Split initialPrimarySize="45%" resetOnDoubleClick>
           <div className=" w-full h-full overflow-y-scroll">
             <QuestionPane />
           </div>
@@ -144,9 +151,14 @@ const Question = () => {
                 </Button>
                 <Button className="bg-primary text-white font-semibold px-8 py-2">SUBMIT</Button>
               </div>
+              {/* horizontal line */}
               <div className="h- w-full">
-                <div>{outputResult && atob(outputResult.stdout)}</div>
-                <p>TEST</p>
+                {outputResult && (
+                  <>
+                    <div className="border-b border-gray-300 my-2"></div>
+                    <OutputPane outputResult={outputResult} />
+                  </>
+                )}
               </div>
             </div>
           </div>
