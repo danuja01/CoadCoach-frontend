@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PaperAirplane from "@/icons/paperAirplane";
 import { TextareaAutosize } from "@mui/material";
 
 const AiChat = () => {
@@ -98,9 +99,9 @@ const AiChat = () => {
             <button
               type="submit"
               onClick={handleSubmit}
-              className=" px-4 py-2 self-end h-[58px] w-[130px] bg-secondary text-white rounded-lg hover:opacity-75 focus:outline-none focus:ring "
+              className="  self-end h-[58px] w-[100px] bg-secondary text-white rounded-lg hover:opacity-75 focus:outline-none focus:ring flex justify-center items-center"
             >
-              Send
+              <PaperAirplane className="w-6 h-6" />
             </button>
           </form>
         </div>
