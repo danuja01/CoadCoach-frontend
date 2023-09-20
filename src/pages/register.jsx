@@ -22,7 +22,7 @@ const Register = () => {
         <div className="bg-[#E9ECF0] flex justify-center items-center">
           <Card className="p-10 rounded-sm shadow-none">
             <div className="mb-8">
-              <h3 className="text-[25px] font-inter font-semibold">Let's Get Started!!</h3>
+              <h3 className="text-[25px] font-inter font-semibold">Let&apos;s Get Started!!</h3>
               <p className="text-gray-400 text-sm">Please Sign Up to Explore {brand.name} </p>
             </div>
             <div className="flex flex-col gap-3">
