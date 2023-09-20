@@ -1,9 +1,12 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
+import sidePanelReducer from "./sidePanel";
 
 export function makeStore() {
   return configureStore({
-    devTools: import.meta.env.VITE_APP_ENV !== "production",
-    reducer: combineReducers({})
+    devTools: process.env.NODE_ENV !== "production",
+    reducer: {
+      sidePanel: sidePanelReducer
+    }
   });
 }
 
