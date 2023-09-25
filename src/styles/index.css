@@ -4,10 +4,26 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  font-family: "Inter", sans-serif;
+}
+
 h1 {
   font-family: "Inter", sans-serif;
   font-weight: 700;
   font-size: 2rem;
   line-height: 2.5rem;
   color: #333;
+}
+
+#question-pane pre {
+  background-color: #f4f4f4;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-x: auto;
 }
