@@ -52,7 +52,7 @@ const CreateQuestion = () => {
             <ReactQuill
               theme="snow"
               modules={module}
-              className="border rounded-lg p-1 shadow-lg bg-[#EFEFEF]"
+              className="border rounded-lg p-1 shadow-lg bg-[#EFEFEF] w-[912px]"
               ref={(el) => setQuill(el)}
             />
           </div>
