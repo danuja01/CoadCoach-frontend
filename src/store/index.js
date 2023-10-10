@@ -1,12 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { authApi } from "./api/auth";
 import sidePanelReducer from "./sidePanel";
 
 export function makeStore() {
   return configureStore({
     devTools: process.env.NODE_ENV !== "production",
-    reducer: {
-      sidePanel: sidePanelReducer
-    }
+    reducer: combineReducers({
+      sidePanel: sidePanelReducer,
+      [authApi.reducerPath]: authApi.reducer
+    }),
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: false
+      }).concat(authApi.middleware)
   });
 }
 
