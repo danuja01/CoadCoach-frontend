@@ -10,8 +10,11 @@ import {
   Landing,
   Login,
   Question,
-  Register
+  Register //CreateLab,
+  //UpdateLab,
 } from "@/pages";
+import CreateLab from "@/pages/createLab";
+import UpdateLab from "@/pages/updateLab";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -28,6 +31,8 @@ const AnimatedRoutes = () => {
         <Route path="/lab-questions" element={<LabQuestions />} />
         <Route path="/insSelect-lab" element={<InsSelectLab />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/createLab" element={<CreateLab />} />
+        <Route path="/updateLab" element={<UpdateLab />} />
       </Routes>
     </AnimatePresence>
   );
