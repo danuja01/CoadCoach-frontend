@@ -1,4 +1,6 @@
 import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 // eslint-disable-next-line no-unused-vars
 import { useAuth } from "@/hooks";
@@ -15,6 +17,7 @@ const App = () => {
         exit={{ opacity: 0, transition: { duration: 0.3 } }}
         transition={{ duration: 0.3 }}
       >
+        <ToastContainer />
         <AnimatedRoutes />
       </motion.main>
     </Provider>
