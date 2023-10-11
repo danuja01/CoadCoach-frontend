@@ -12,6 +12,11 @@ export const authApi = createApi({
       transformResponse: (response) => {
         localStorage.setItem("access_token", response.data.access_token);
         localStorage.setItem("refresh_token", response.data.refresh_token);
+        localStorage.setItem("user_id", response.data.user.id);
+        localStorage.setItem("user_email", response.data.user.email);
+        localStorage.setItem("user_username", response.data.user.username);
+        console.log(response);
+
         return response;
       }
     }),

@@ -1,11 +1,18 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { brand } from "@/constants";
+import { authApi, useLogoutMutation } from "@/store/api/auth";
 import { Avatar, Box, Button, Container, Divider, Menu, MenuItem, Tooltip, Typography } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [logout] = useLogoutMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const username = localStorage.getItem("user_username");
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -13,6 +20,13 @@ const Navbar = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const onLogoutClick = async () => {
+    logout();
+    localStorage.clear();
+    dispatch(authApi.util.resetApiState());
+    navigate("/");
   };
 
   return (
@@ -38,7 +52,7 @@ const Navbar = () => {
                     height: 30
                   }}
                 />
-                <Typography className="font-inter font-medium text-[16px] ml-3 text-white">danuja01</Typography>
+                <Typography className="font-inter font-medium text-[16px] ml-3 text-white">{username}</Typography>
               </Button>
             </Tooltip>
             <Menu
@@ -63,7 +77,15 @@ const Navbar = () => {
               }}
             >
               <MenuItem>
-                <Typography textAlign="center">Log out</Typography>
+                <Button
+                  onClick={() => {
+                    onLogoutClick();
+                    console.log("clicked");
+                  }}
+                  className="p-0 text-red-600"
+                >
+                  Log out
+                </Button>
               </MenuItem>
               <Divider />
               <MenuItem>
