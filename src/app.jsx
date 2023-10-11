@@ -1,12 +1,14 @@
 import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
-// eslint-disable-next-line no-unused-vars
 import { useAuth } from "@/hooks";
 import { default as AnimatedRoutes } from "@/routes";
 import { store } from "@/store";
 
 const App = () => {
-  // const completed = useAuth();
+  // eslint-disable-next-line no-unused-vars
+  const completed = useAuth(["ADMIN", "STUDENT"]);
   return (
     <Provider store={store}>
       <motion.main
@@ -15,6 +17,7 @@ const App = () => {
         exit={{ opacity: 0, transition: { duration: 0.3 } }}
         transition={{ duration: 0.3 }}
       >
+        <ToastContainer />
         <AnimatedRoutes />
       </motion.main>
     </Provider>

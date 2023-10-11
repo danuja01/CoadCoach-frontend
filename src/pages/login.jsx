@@ -1,13 +1,49 @@
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { brand, coadcoach, copyright } from "@/constants";
+import { store } from "@/store";
+import { authApi, useLoginMutation } from "@/store/api/auth";
 import { Button, Card, TextField } from "@mui/material";
 
 // Import useLocation from react-router-dom
 
 const Login = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const queryParams = new URLSearchParams(location.search);
   const role = queryParams.get("role");
+
+  const [login, { isLoading }] = useLoginMutation();
+
+  const [error, setError] = useState({
+    email: false,
+    password: false
+  });
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const emailValue = e.target.email.value;
+    const passwordValue = e.target.password.value;
+
+    setError({
+      email: !emailValue,
+      password: !passwordValue
+    });
+
+    if (emailValue && passwordValue) {
+      try {
+        const res = await login({ email: emailValue, password: passwordValue }).unwrap();
+        store.dispatch(authApi.util.upsertQueryData("authUser", undefined, { data: res.data.user }));
+        navigate("/question");
+      } catch (error) {
+        // Handle any login errors here
+        console.error("Login failed:", error);
+      }
+    }
+  };
 
   return (
     <>
@@ -26,15 +62,28 @@ const Login = () => {
             <p className="text-white text-[32px] ">signup(user);</p>
           </div>
         </div>
-        <div className="bg-[#E9ECF0] flex justify-center items-center">
+        <form className="bg-[#E9ECF0] flex justify-center items-center" onSubmit={handleLogin}>
           <Card className="p-10 rounded-sm shadow-none">
             <div className="mb-8">
               <h3 className="text-[25px] font-inter font-semibold">Welcome Back!</h3>
               <p className="text-gray-400 text-sm">Please Sign in to continue Exploring CodeCoach_ </p>
             </div>
             <div className="flex flex-col gap-4">
-              <TextField id="outlined-basic" label="username / email" variant="outlined" />
-              <TextField id="outlined-basic" label="Password" variant="outlined" />
+              <TextField
+                error={error.email}
+                id="outlined-basic"
+                label="username / email"
+                name="email"
+                variant="outlined"
+              />
+              <TextField
+                error={error.password}
+                id="outlined-basic"
+                type="password"
+                label="Password"
+                name="password"
+                variant="outlined"
+              />
               <div className="flex items-center">
                 <div className="flex-grow border-t border-gray-300 mr-4"></div> {/* Horizontal line */}
                 <a href="#" className="text-sm text-gray-400 hover:text-blue-600">
@@ -44,7 +93,13 @@ const Login = () => {
             </div>
 
             <div className="flex flex-col gap-4 mt-12">
-              <Button className="bg-primary text-white font-inter font-bold text-[18px]">Sign In</Button>
+              <Button
+                className={`bg-primary text-white font-inter font-bold text-[18px] ${isLoading ? "opacity-50" : ""}`}
+                type="submit"
+                disabled={isLoading}
+              >
+                {isLoading ? "Loading..." : "Sign in"}
+              </Button>
               <p className="text-sm text-gray-400">
                 Don’t have an account?{" "}
                 <a href="#" className="text-blue-600">
@@ -53,7 +108,7 @@ const Login = () => {
               </p>
             </div>
           </Card>
-        </div>
+        </form>
       </div>
       <div className="login-footer">
         <img
