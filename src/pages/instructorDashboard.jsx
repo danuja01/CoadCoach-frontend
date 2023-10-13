@@ -8,17 +8,17 @@ const instructorDashboard = () => {
       <Header />
       <div className="mx-5 mt-10">
         <div className="grid grid-cols-3 gap-5">
-          <a href="">
+          <a href="/createLab">
             <Box className="p-5 py-16 hover:opacity-75 cursor-pointer" style={{ backgroundColor: "#EFEFEF" }}>
               <h3 className="text-[28px] font-semibold">Create New Lab</h3>
             </Box>
           </a>
-          <a href="">
+          <a href="/create-question">
             <Box className="p-5 py-16 hover:opacity-75 cursor-pointer" style={{ backgroundColor: "#EFEFEF" }}>
               <h3 className="text-[28px] font-semibold">Create Questions</h3>
             </Box>
           </a>
-          <a href="">
+          <a href="/insSelect-lab">
             <Box className="p-5 py-16 hover:opacity-75 cursor-pointer" style={{ backgroundColor: "#EFEFEF" }}>
               <h3 className="text-[28px] font-semibold">Manage Labs</h3>
             </Box>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import EditIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloseIcon from "@mui/icons-material/close";
@@ -12,10 +13,12 @@ const truncateText = (text, maxLength) => {
   }
 };
 
-const QuestionCard = ({ id, name, description }) => {
-  const maxLength = 100;
+const QuestionCard = (question) => {
+  const maxLength = 50;
 
-  const truncatedDescription = truncateText(description, maxLength);
+  const questionId = question._id;
+
+  const truncatedDescription = `Description : ${truncateText(question.description, maxLength)}`;
 
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
@@ -27,16 +30,31 @@ const QuestionCard = ({ id, name, description }) => {
     setDeleteDialogOpen(false);
   };
 
+  const deleteQuestion = () => {
+    try {
+      axios.delete(`http://localhost:3000/api/challenges/${questionId}`).then(window.location.reload());
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Box className="relative p-5 py-16 cursor-pointer rounded-lg" style={{ backgroundColor: "#EFEFEF" }}>
       <div className=" pb-4">
-        <p className="hidden">{id}</p>
-        <h3 className="text-[28px] font-semibold">Name : {name}</h3>
-        <p className="text-primary">Description : {truncatedDescription}</p>
+        <p className="hidden">{questionId}</p>
+        <h3 className="text-[28px] font-semibold">Name : {question.name}</h3>
+        <p
+          className="text-primary"
+          dangerouslySetInnerHTML={{
+            __html: truncatedDescription
+          }}
+        />
       </div>
       <Stack direction="row" spacing={1} className="absolute mb-2 mr-1 bottom-0 right-0">
         <IconButton>
-          <EditIcon />
+          <a href={"./updateQuestion/" + questionId}>
+            <EditIcon />
+          </a>
         </IconButton>
         <IconButton onClick={openDeleteDialog}>
           <DeleteIcon />
@@ -75,8 +93,7 @@ const QuestionCard = ({ id, name, description }) => {
                 color="error"
                 startIcon={<DeleteIcon />}
                 onClick={() => {
-                  // Add your delete logic here
-                  // Then close the dialog
+                  deleteQuestion();
                   closeDeleteDialog();
                 }}
               >

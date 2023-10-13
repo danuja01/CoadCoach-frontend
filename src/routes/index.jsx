@@ -10,8 +10,8 @@ import {
   Landing,
   Login,
   Question,
-  Register //CreateLab,
-  //UpdateLab,
+  Register, //CreateLab,
+  UpdateQuestion //UpdateLab,
 } from "@/pages";
 import CreateLab from "@/pages/createLab";
 import Submissions from "@/pages/submissions";
@@ -33,8 +33,9 @@ const AnimatedRoutes = () => {
         <Route path="/insSelect-lab" element={<InsSelectLab />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/createLab" element={<CreateLab />} />
-        <Route path="/updateLab" element={<UpdateLab />} />
         <Route path="/admin/submissions" element={<Submissions />} />
+        <Route path="/updateLab/:id" element={<UpdateLab />} />
+        <Route path="/updateQuestion/:id" element={<UpdateQuestion />} />
       </Routes>
     </AnimatePresence>
   );
