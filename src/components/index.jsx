@@ -6,3 +6,4 @@ export { default as TestCase } from "./questions/testCase";
 export { default as UpdateTestCase } from "./questions/updateTestCase";
 export { default as QuestionCard } from "./questions/questionCard";
 export { default as LabCard } from "./labs/labCard";
+export { default as StudentLabCard } from "./labs/studentlabCard";
