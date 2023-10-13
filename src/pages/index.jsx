@@ -8,3 +8,4 @@ export { default as CreateQuestion } from "./createQuestion";
 export { default as LabQuestions } from "./labQuestions";
 export { default as InsSelectLab } from "./selectLab";
 export { default as AdminDashboard } from "./adminDashboard";
+export { default as UpdateQuestion } from "./updateQuestion";
