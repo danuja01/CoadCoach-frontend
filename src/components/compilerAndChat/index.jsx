@@ -147,11 +147,21 @@ const CompilerAndChat = ({ question, id }) => {
       return;
     }
 
+    let passCount = 0;
+
+    //update pass count out of total testCases
+    testResults.map((result) => {
+      if (atob(result.output.stdout).trim() == result.expected_output) {
+        passCount++;
+      }
+    });
+
     const submission = {
       userId: userId,
       questionId: id,
       code: code,
-      language: language.label, // You might need to adjust this depending on the API requirements.
+      language: language.label,
+      score: ((passCount / question.testCases.length) * 100).toFixed(2),
       testCasesStatus: testResults.map((result) => ({
         testCaseId: result.id,
         status: atob(result.output.stdout).trim() == result.expected_output ? "Completed" : "Failed"

@@ -28,6 +28,11 @@ const AdminDashboard = () => {
               <h3 className="text-[28px] font-semibold">Questions</h3>
             </Box>
           </Link>
+          <a href="">
+            <Box className="p-5 py-16 hover:opacity-75 cursor-pointer" style={{ backgroundColor: "#EFEFEF" }}>
+              <h3 className="text-[28px] font-semibold">Submissions</h3>
+            </Box>
+          </a>
         </div>
       </div>
     </>
