@@ -1,14 +1,21 @@
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { CompilerAndChat, Header, SidePanel } from "@/components";
+import { selectQuestionById, useGetQuestionByIdQuery } from "@/store/api/question";
 
 const Question = () => {
   const { option } = useSelector((state) => state.sidePanel);
+
+  const { id } = useParams();
+  const questionFromStore = useSelector(selectQuestionById(id));
+
+  const { data: { data: question = questionFromStore } = {} } = useGetQuestionByIdQuery(id);
 
   const showComponent = () => {
     switch (option) {
       case "question":
       case "ai-chat":
-        return <CompilerAndChat />;
+        return <CompilerAndChat question={question} id={id} />;
       case "discussion":
         return <div className="px-6 py-5">discussion</div>;
       default:

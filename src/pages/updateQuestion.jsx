@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import { TestCase } from "@/components";
+import { UpdateTestCase } from "@/components";
 import { Header } from "@/components";
 import module from "@/utils/quillTextModules";
 import AddIcon from "@mui/icons-material/AddCircle";
@@ -10,9 +11,30 @@ import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Button, Stack, Switch } from "@mui/material";
 
-const CreateQuestion = () => {
-  const [testCases, setTestCases] = useState([<TestCase key={0} />]);
+const UpdateQuestion = () => {
+  const [testCases, setTestCases] = useState([]);
+  const [Question, setQuestion] = useState();
+  const [Name, setName] = useState();
+  const [Description, setDescription] = useState();
+  const [isPublic, setPublic] = useState();
   const [quill, setQuill] = useState(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/api/challenges/${id}`)
+      .then((res) => {
+        const question = res.data.data;
+        setQuestion(question);
+        setName(question.name);
+        setDescription(question.description);
+        setPublic(question.isPublic);
+        setTestCases(question.testCases || []);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 
   const addTestCase = () => {
     setTestCases([...testCases, {}]);
@@ -24,15 +46,15 @@ const CreateQuestion = () => {
     setTestCases(updatedTestCases);
   };
 
+  const renderedTestCases = testCases.map((testCase, index) => (
+    <UpdateTestCase id={index} key={index} onRemove={() => removeTestCase(index)} testCase={testCase} />
+  ));
+
   const handleDiscard = () => {
     if (quill) {
       quill.getEditor().setText("");
     }
   };
-
-  const renderedTestCases = testCases.map((_, index) => (
-    <TestCase id={index} key={index} onRemove={() => removeTestCase(index)} />
-  ));
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -41,7 +63,7 @@ const CreateQuestion = () => {
       name: event.target.name.value,
       description: quill.getEditor().getText(),
       isPublic: event.target.share.checked,
-      publisher: "64da6dc95c92bdeb4de3a5ca",
+      publisher: Question.publisher,
       testCases: testCases.map((testCase, index) => ({
         testName: event.target[`testName${index}`].value,
         description: event.target[`description${index}`].value,
@@ -53,9 +75,8 @@ const CreateQuestion = () => {
     console.log(challengeData);
 
     try {
-      const response = await axios.post("http://localhost:3000/api/challenges/", challengeData);
-      console.log("Challenge created:", response.data);
-      window.location.reload();
+      const response = await axios.put(`http://localhost:3000/api/challenges/${id}`, challengeData);
+      console.log("Challenge updated:", response.data);
     } catch (error) {
       console.error("Error creating challenge: ", error);
     }
@@ -64,14 +85,14 @@ const CreateQuestion = () => {
   return (
     <>
       <Header />
-      <h2 className="font-inter text-[28px] mb-5 font-bold mt-4 ml-5">Create Question</h2>
+      <h2 className="font-inter text-[28px] mb-5 font-bold mt-4 ml-5">Update Question</h2>
       <div className="flex flex-col justify-center items-center h-screen w-[800px] mx-auto">
         <form className="h-full" onSubmit={handleSubmit}>
           <div className="flex flex-col mb-4">
             <label className="mb-2 uppercase font-bold text-md text-[#4C5871]" htmlFor="name">
               Name:{" "}
             </label>
-            <input className="border rounded-lg p-1 shadow-lg h-[40px] bg-[#EFEFEF]" name="name" />
+            <input className="border rounded-lg p-1 shadow-lg h-[40px] bg-[#EFEFEF]" name="name" value={Name} />
           </div>
           <div className="flex flex-col mb-4">
             <label className="mb-2 uppercase font-bold text-md text-[#4C5871]" htmlFor="description">
@@ -81,6 +102,7 @@ const CreateQuestion = () => {
               theme="snow"
               modules={module}
               className="border rounded-lg p-1 shadow-lg bg-[#EFEFEF] w-[912px]"
+              value={Description}
               ref={(el) => setQuill(el)}
             />
           </div>
@@ -88,7 +110,7 @@ const CreateQuestion = () => {
             <label className="mb-2 uppercase font-bold text-md text-[#4C5871]" htmlFor="share">
               Share with other labs?
             </label>
-            <Switch size="medium" className="mb-1 ml-3" name="share" />
+            <Switch size="medium" className="mb-1 ml-3" name="share" value={isPublic} />
           </div>
           <div className="flex flex-col mb-4">
             <label className="mb-2 uppercase font-bold text-md text-[#4C5871]" htmlFor="description">
@@ -109,7 +131,7 @@ const CreateQuestion = () => {
           <div className=" flex flex-col mb-4 mx-auto">
             <Stack direction="row" spacing={5} className=" px-80">
               <Button type="submit" variant="contained" className=" bg-[#4C5871] rounded-lg" startIcon={<CreateIcon />}>
-                Create
+                Update
               </Button>
               <Button
                 type="reset"
@@ -128,4 +150,4 @@ const CreateQuestion = () => {
   );
 };
 
-export default CreateQuestion;
+export default UpdateQuestion;
