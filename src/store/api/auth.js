@@ -16,6 +16,7 @@ export const authApi = createApi({
         localStorage.setItem("user_email", response.data.user.email);
         localStorage.setItem("user_username", response.data.user.username);
         console.log(response);
+
         return response;
       }
     }),
