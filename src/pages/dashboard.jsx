@@ -66,12 +66,13 @@ const Dashboard = () => {
         return (
           selectedLabData.codeChallenges &&
           selectedLabData.codeChallenges.map((codeChallenge, index) => (
-            <Box key={index} className="relative p-5 py-12 cursor-pointer" style={{ backgroundColor: "#EFEFEF" }}>
+            <Box key={index} className="relative px-4 py-4  cursor-pointer" style={{ backgroundColor: "#EFEFEF" }}>
               <div>
                 <Link to={`/question/${codeChallenge._id}`}>
-                  <h5 className="text-[28px] font-semibold">
-                    {(codeChallenge.description.slice(0, 38) + "...").replace(/<[^>]*>?/gm, "")}
-                  </h5>
+                  <p className="font-semibold">{`Question ${index + 1}`}</p>
+                  <p className="text-[14px] ">
+                    {(codeChallenge.description.slice(0, 200) + "...").replace(/<[^>]*>?/gm, "")}
+                  </p>
                 </Link>
               </div>
             </Box>
