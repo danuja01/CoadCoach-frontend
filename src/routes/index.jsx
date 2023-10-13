@@ -25,14 +25,14 @@ const AnimatedRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/question" element={<Question />} />
+        <Route path="/question/:id" element={<Question />} />
         <Route path="/instructor-dashboard" element={<InsDashboard />} />
         <Route path="/create-question" element={<CreateQuestion />} />
         <Route path="/lab-questions" element={<LabQuestions />} />
         <Route path="/insSelect-lab" element={<InsSelectLab />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/createLab" element={<CreateLab />} />
-        <Route path="/updateLab" element={<UpdateLab />} />
+        <Route path="/updateLab/:id" element={<UpdateLab />} />
       </Routes>
     </AnimatePresence>
   );
