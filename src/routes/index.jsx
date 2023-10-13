@@ -14,6 +14,7 @@ import {
   //UpdateLab,
 } from "@/pages";
 import CreateLab from "@/pages/createLab";
+import Submissions from "@/pages/submissions";
 import UpdateLab from "@/pages/updateLab";
 
 const AnimatedRoutes = () => {
@@ -33,7 +34,7 @@ const AnimatedRoutes = () => {
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/createLab" element={<CreateLab />} />
         <Route path="/updateLab" element={<UpdateLab />} />
-
+        <Route path="/admin/submissions" element={<Submissions />} />
       </Routes>
     </AnimatePresence>
   );
