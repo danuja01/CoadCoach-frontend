@@ -1,13 +1,28 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { Header } from "@/components";
 import { StudentLabCard } from "@/components";
+import { Box, Button } from "@mui/material";
 
 //import { Box } from "@mui/material";
 
 const Dashboard = () => {
   const [labs, setLabs] = useState([]);
   const [error, setError] = useState(null);
+  const [selectedLab, setSelectedLab] = useState(null);
+
+  const [mode, setMode] = useState("lab");
+
+  const handleClick = (labId) => {
+    setSelectedLab(labId);
+    setMode("question");
+  };
+
+  const handleBack = () => {
+    setSelectedLab(null);
+    setMode("lab");
+  };
 
   useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
@@ -38,34 +53,44 @@ const Dashboard = () => {
     return <div>Error fetching data: {error.message}</div>;
   }
 
+  const chooseMode = () => {
+    switch (mode) {
+      case "lab":
+        return labs.map((lab) => (
+          <StudentLabCard key={lab._id} {...lab} mode={mode} handleClick={() => handleClick(lab._id)} />
+        ));
+
+      case "question":
+        // eslint-disable-next-line no-case-declarations
+        const selectedLabData = labs.find((lab) => lab._id === selectedLab);
+        return (
+          selectedLabData.codeChallenges &&
+          selectedLabData.codeChallenges.map((codeChallenge, index) => (
+            <Box key={index} className="relative p-5 py-12 cursor-pointer" style={{ backgroundColor: "#EFEFEF" }}>
+              <div>
+                <Link to={`/question/${codeChallenge._id}`}>
+                  <h5 className="text-[28px] font-semibold">
+                    {(codeChallenge.description.slice(0, 38) + "...").replace(/<[^>]*>?/gm, "")}
+                  </h5>
+                </Link>
+              </div>
+            </Box>
+          ))
+        );
+    }
+  };
   return (
     <>
       <Header />
       <div className="mx-5 mt-5">
-        <h2 className="font-inter text-[28px] mb-5 font-bold">Your Labs</h2>
-        <br />
-        <div className="grid grid-cols-3 gap-5">
-          {labs.map((lab) => (
-            <StudentLabCard key={lab._id} {...lab} />
-          ))}
+        <div className="flex justify-between items-center">
+          <h2 className="font-inter text-[28px] mb-5 font-bold">Your Labs</h2>
+          <Button onClick={handleBack} variant="contained" className="bg-[#4C5871] rounded-lg">
+            back
+          </Button>
         </div>
-
-        {/* <div className="grid grid-cols-3 gap-5">
-          <Box
-            className="p-5 py-16 hover:opacity-75 cursor-pointer"
-            style={{ backgroundColor: "rgba(100, 116, 139, 0.55)" }}
-          >
-            <h3 className="text-[28px] font-semibold">NAME : OOP</h3>
-            <p className="text-primary">INSTRUCTOR: Saman Disanayake</p>
-          </Box>
-          <Box
-            className="p-5 py-16 hover:opacity-75 cursor-pointer"
-            style={{ backgroundColor: "rgba(100, 116, 139, 0.55)" }}
-          >
-            <h3 className="text-[28px] font-semibold">NAME : OOP</h3>
-            <p className="text-primary">INSTRUCTOR: Saman Disanayake</p>
-          </Box>
-        </div> */}
+        <br />
+        <div className="grid grid-cols-3 gap-5">{chooseMode()}</div>
       </div>
     </>
   );

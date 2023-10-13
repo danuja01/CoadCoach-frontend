@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { Button, Stack } from "@mui/material";
 
-const StudentLabCard = ({ _id, moduleName, batchGroup }) => {
+const StudentLabCard = ({ _id, moduleName, batchGroup, handleClick }) => {
   return (
     <>
       <Box className="relative p-5 py-12 cursor-pointer" style={{ backgroundColor: "#EFEFEF" }}>
@@ -12,11 +12,9 @@ const StudentLabCard = ({ _id, moduleName, batchGroup }) => {
           <br />
           <br />
           <Stack direction="row" spacing={5} className=" px-30">
-            <a href={`/question/${_id}`}>
-              <Button variant="contained" className=" bg-[#4C5871] rounded-lg">
-                Select
-              </Button>
-            </a>
+            <Button variant="contained" onClick={handleClick} className=" bg-[#4C5871] rounded-lg">
+              Select
+            </Button>
           </Stack>
         </div>
       </Box>
