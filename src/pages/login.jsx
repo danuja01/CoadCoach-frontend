@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { brand, coadcoach, copyright } from "@/constants";
@@ -16,19 +17,32 @@ const Login = () => {
 
   const [login, { isLoading }] = useLoginMutation();
 
+  const [error, setError] = useState({
+    email: false,
+    password: false
+  });
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    await login({
-      email: e.target.email.value,
-      password: e.target.password.value
-    })
-      .unwrap()
-      .then((res) => {
-        console.log(res);
+    const emailValue = e.target.email.value;
+    const passwordValue = e.target.password.value;
+
+    setError({
+      email: !emailValue,
+      password: !passwordValue
+    });
+
+    if (emailValue && passwordValue) {
+      try {
+        const res = await login({ email: emailValue, password: passwordValue }).unwrap();
         store.dispatch(authApi.util.upsertQueryData("authUser", undefined, { data: res.data.user }));
         navigate("/question");
-      });
+      } catch (error) {
+        // Handle any login errors here
+        console.error("Login failed:", error);
+      }
+    }
   };
 
   return (
@@ -55,8 +69,21 @@ const Login = () => {
               <p className="text-gray-400 text-sm">Please Sign in to continue Exploring CodeCoach_ </p>
             </div>
             <div className="flex flex-col gap-4">
-              <TextField id="outlined-basic" label="username / email" name="email" variant="outlined" />
-              <TextField id="outlined-basic" label="Password" name="password" variant="outlined" />
+              <TextField
+                error={error.email}
+                id="outlined-basic"
+                label="username / email"
+                name="email"
+                variant="outlined"
+              />
+              <TextField
+                error={error.password}
+                id="outlined-basic"
+                type="password"
+                label="Password"
+                name="password"
+                variant="outlined"
+              />
               <div className="flex items-center">
                 <div className="flex-grow border-t border-gray-300 mr-4"></div> {/* Horizontal line */}
                 <a href="#" className="text-sm text-gray-400 hover:text-blue-600">
