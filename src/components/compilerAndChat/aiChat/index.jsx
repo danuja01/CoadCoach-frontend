@@ -1,53 +1,75 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import PaperAirplane from "@/icons/paperAirplane";
+import { useSendChatMutation } from "@/store/api/chat";
 import { TextareaAutosize } from "@mui/material";
 
-const AiChat = () => {
-  const [messages, setMessages] = useState([{ text: "Hello, how can I assist you?", isUser: false, sender: "Coach" }]);
+const AiChat = ({ questionId, code, messages, setMessages }) => {
   const [userInput, setUserInput] = useState("");
   const [suggestedQuestions] = useState([
     "Why is my code not working?",
     "Explain the question simply.",
-    "How do I use the map function?"
+    "How do I use the map function in JS?"
   ]);
 
+  const [sendChat, { isLoading }] = useSendChatMutation();
+
   const handleSuggestedQuestionClick = (question) => {
-    // Handle the click on a suggested question
     setUserInput(question);
   };
 
-  // scroll to bottom
   const scroll = () => {
     const chat = document.getElementById("chat");
     chat.scrollTop = chat.scrollHeight;
   };
 
-  const handleSubmit = (e) => {
+  const formatCodeSnippets = (text) => {
+    // Use regular expressions to find code snippets within ```
+    const formattedText = text.replace(/```([^`]+)```/g, (match, code) => {
+      return `<pre class="bg-gray-700 py-2 px-4 rounded-lg text-gray-100 my-2">${code}</pre>`;
+    });
+
+    // Use regular expressions to find code snippets within `..`
+    return formattedText.replace(/`([^`]+)`/g, (match, code) => {
+      return `<pre class="bg-gray-700 p-2 rounded-lg text-gray-100 my-2">${code}</pre>`;
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (userInput.trim() === "") return;
 
-    // Determine if the message is from the user or the AI
     const isUserMessage = userInput.trim() !== "Hello, how can I assist you?";
     const senderLabel = isUserMessage ? "You" : "Coach";
 
-    // Create a new user message
-    const newUserMessage = { text: userInput, isUser: isUserMessage, sender: senderLabel };
-
-    // Use the functional form of setState to update messages
+    const newUserMessage = { text: formatCodeSnippets(userInput), isUser: isUserMessage, sender: senderLabel };
     setMessages((prevMessages) => [...prevMessages, newUserMessage]);
-
-    // Simulate AI response (replace with GPT-3 integration)
-    setTimeout(() => {
-      const aiResponse = { text: "I am a chatbot and this is a simulated response.", isUser: false, sender: "Coach" };
-      setMessages((prevMessages) => [...prevMessages, aiResponse]);
-    }, 500);
-
-    setTimeout(() => {
-      scroll();
-    }, 100);
+    const message = userInput;
 
     setUserInput("");
+
+    try {
+      const response = await sendChat({
+        id: questionId,
+        code,
+        message: message
+      });
+
+      const aiResponse = { text: formatCodeSnippets(response.data.data.content), isUser: false, sender: "Coach" };
+      setMessages((prevMessages) => [...prevMessages, aiResponse]);
+    } catch (err) {
+      toast.error("Something went wrong", {
+        position: toast.POSITION.TOP_CENTER
+      });
+    }
+
+    scroll();
   };
+
+  useEffect(() => {
+    // Automatically scroll to the bottom when new messages arrive
+    scroll();
+  }, [messages]);
 
   return (
     <div className="w-full h-full flex flex-col justify-end relative">
@@ -57,7 +79,7 @@ const AiChat = () => {
             <div key={index} className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}>
               <div
                 className={`bg-gray-200 p-3 rounded-lg ${
-                  message.isUser ? "bg-secondary text-white ml-auto" : "bg-gray-300 text-secondary "
+                  message.isUser ? "bg-secondary text-white ml-auto" : "bg-gray-300 text-secondary"
                 }`}
               >
                 <div
@@ -67,13 +89,18 @@ const AiChat = () => {
                 >
                   {message.sender}
                 </div>
-                {message.text}
+                <span dangerouslySetInnerHTML={{ __html: message.text }} />
               </div>
             </div>
           ))}
+          {isLoading && (
+            <div className="flex items-center w-full h-full  justify-center">
+              <div className="animate-spin w-8 h-8 border-t-2 my-20 border-secondary rounded-full"></div>
+            </div>
+          )}
         </div>
       </div>
-      <div className="flex flex-col w-full p-4 gap-3 ">
+      <div className="flex flex-col w-full p-4 gap-3">
         <div className="flex gap-2">
           {suggestedQuestions.map((question, index) => (
             <button
@@ -85,7 +112,7 @@ const AiChat = () => {
             </button>
           ))}
         </div>
-        <div className="flex w-full ">
+        <div className="flex w-full">
           <form className="flex w-full gap-2">
             <TextareaAutosize
               type="text"
@@ -99,7 +126,8 @@ const AiChat = () => {
             <button
               type="submit"
               onClick={handleSubmit}
-              className="  self-end h-[58px] w-[100px] bg-secondary text-white rounded-lg hover:opacity-75 focus:outline-none focus:ring flex justify-center items-center"
+              className="self-end h-[58px] w-[100px] bg-secondary text-white rounded-lg hover:opacity-75 focus:outline-none focus:ring flex justify-center items-center"
+              disabled={isLoading}
             >
               <PaperAirplane className="w-6 h-6" />
             </button>

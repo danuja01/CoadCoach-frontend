@@ -37,7 +37,7 @@ const Login = () => {
       try {
         const res = await login({ email: emailValue, password: passwordValue }).unwrap();
         store.dispatch(authApi.util.upsertQueryData("authUser", undefined, { data: res.data.user }));
-        navigate("/question");
+        navigate("/dashboard");
       } catch (error) {
         // Handle any login errors here
         console.error("Login failed:", error);
